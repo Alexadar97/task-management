@@ -1,0 +1,159 @@
+<main id="main">
+  <div class="content">
+
+    <div class="card" id="topcard">
+      <div class="container">
+        <div class="row" id="row1">
+
+          <div class="col-md-2 col-sm-4 col-xs-4 col-lg-2 ">
+            <p class="title-page"><img src="assets/images/project.png">&nbsp;&nbsp;Projects</p>
+          </div>
+          <div class="col-md-2 col-sm-4 col-xs-4  col-lg-2">
+
+            <button type="button" class="btn btn-add btn-sm" (click)="addnew()"><span class="add-btn"><img
+                  src="assets/images/add.png"></span>&nbsp;&nbsp;&nbsp;New Project
+            </button>
+
+          </div>
+          <div class="col-md-8 col-sm-4 col-xs-4 col-lg-8">
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</main>
+<div class="project-sub">
+  <div class="container-fluid" id="padding">
+
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <div class="" style="padding: 25px 0;  font-family: corpoS-bold ">
+          <!-- <img src="assets/images/project-icon.png">&nbsp;&nbsp; -->
+          Projects List
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3"></div>
+      <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3" style="right:10px">
+        <div class="input-group" style="padding: 25px 0;">
+
+          <input id="password" type="text" class="form-control" name="password">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 table-responsive">
+        <table class="table " id="project-table" style="width: 99%;">
+          <thead>
+            <tr>
+              <th>S.No</th>
+              <th>Project Name</th>
+              <th>Total Task</th>
+              <th>Start Date</th>
+              <th>Deadline</th>
+              <th>Members</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody class="tablecursor">
+            <ng-container
+              *ngFor="let data of ProjectList  | paginate: { itemsPerPage: 3, currentPage: p }; let i=index">
+              <tr (click)="addnewproject()" style="cursor:pointer">
+                <td>{{i+1}}</td>
+                <td id="td">{{data.name}}</td>
+                <td>{{data.task}}</td>
+                <td>{{data.date}}</td>
+                <td>{{data.deadline}}</td>
+                <td><img src="assets/images/user.png">&nbsp;<img src="assets/images/user.png"></td>
+                <td><span class="status-btn">In Progress</span></td>
+              </tr>
+            </ng-container>
+          </tbody>
+
+        </table>
+        <div style="float:right">
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="row open-view" *ngIf="newProject" style="position: absolute;
+  top: 190px;width: 100%;">
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+    </div>
+    <div class="col-md-6 col-sm-12 col-lg-6 col-xs-12">
+      <div class="addnewscreen">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 addnewpage-head">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <h4>New Project</h4>
+              </div>
+              <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <span class="close-tag" (click)="closetasks()"><img src="assets/images/x.png" class="x-img"></span>
+              </div>
+
+
+        </div>
+        <div class="addnewpage-body">
+          <form [formGroup]="projectForm">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              <div class="form-group">
+                <label>Project Name</label>
+                <input type="text" class="form-control" formControlName="name" placeholder="Project Name">
+                <small class="text-danger"
+                  *ngIf="!projectForm.controls.name.valid && projectForm.controls.name.touched">
+                  Project Name is invalid</small>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              <div class="form-group">
+                <label>Manager</label>
+                <input type="text" class="form-control" formControlName="manager" placeholder="Manager">
+                <small class="text-danger"
+                  *ngIf="!projectForm.controls.manager.valid && projectForm.controls.manager.touched">
+                  Manager is invalid</small>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+              <div class="form-group">
+                <label>Start Date</label>
+                <input type="date" class="form-control" formControlName="startdate" placeholder="DD-MM-YYYY">
+                <small class="text-danger"
+                  *ngIf="!projectForm.controls.startdate.valid && projectForm.controls.startdate.touched">
+                  Start Date is invalid</small>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+              <div class="form-group">
+                <label>End Date</label>
+                <input type="date" class="form-control" formControlName="enddate" placeholder="DD-MM-YYYY">
+                <small class="text-danger"
+                  *ngIf="!projectForm.controls.enddate.valid && projectForm.controls.enddate.touched">
+                  End Date is invalid</small>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              <div class="form-group">
+                <label>Description</label>
+                <textarea type="text" class="form-control" formControlName="description" placeholder="Description"
+                  style="height: 90px"></textarea>
+
+                <small class="text-danger"
+                  *ngIf="!projectForm.controls.description.valid && projectForm.controls.description.touched">
+                  Description is invalid</small>
+              </div>
+            </div>
+          </form>
+          <div class="footer-btns">
+            <button type="button" class="btn btn-sm btn-cancel" (click)="cancelnew()">Cancel</button>&nbsp;&nbsp;
+            <button type="button" class="btn btn-sm btn-add" (click)="ConfrimProject()">Create Project</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

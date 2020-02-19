@@ -1,0 +1,37 @@
+.logo {
+    padding: 25px 50px;
+}
+.logo img{
+    width: 200px;
+}
+
+.navbar-collapse.collapse.sidebar-navbar-collapse {
+    background: #151515;
+}
+.sidebar-nav .navbar li a:hover {
+    background-color: #000;
+    color: white;
+}
+.list-side {
+    padding-top: 50px;
+}
+#sidebar{
+    padding-left: 50px;
+}
+.navbar-nav li a {
+    padding: 15px 52px;
+    color: #bababa;
+        cursor: pointer;
+}
+.sidebar-nav .navbar li a:active {
+    background-color: #000!important;
+    color: white !important;
+}
+@media (max-width:1440px){
+    .logo img{
+        width: 180px;
+    }
+    .logo {
+        padding: 25px 30px;
+    }
+  }

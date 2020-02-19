@@ -1,0 +1,295 @@
+<main id="main">
+  <div class="content">
+
+    <div class="card" id="topcard">
+      <div class="container">
+        <div class="row" id="row1">
+
+          <div class="col-md-2 col-sm-5 col-xs-5 col-lg-2 ">
+            <p class="title-page"><img src="assets/images/taskw.png">&nbsp;&nbsp;Tasks</p>
+          </div>
+          <div class="col-md-2 col-sm-5 col-xs-5 col-lg-2">
+
+
+            <button type="button" class="btn btn-add btn-sm" (click)="addnew()"><span class="add-btn"><img
+                  src="assets/images/add.png"></span>&nbsp;&nbsp;&nbsp;New Task
+            </button>
+
+          </div>
+          <div class="col-md-8 col-sm-2 col-xs-2 col-lg-8">
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="project-sub">
+    <div class="container-fluid" id="padding">
+
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+          <div class="" style="padding: 25px 0; font-family: corpoS-bold ">
+            <!-- <img src="assets/images/project-icon.png">&nbsp;&nbsp; -->
+            Tasks List
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3"></div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3" style="right:10px">
+          <div class="input-group" style="padding: 25px 0;">
+
+            <input id="password" type="text" class="form-control" name="password">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+          </div>
+        </div>
+      </div>
+      <!-- Task table start--->
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 table-responsive">
+          <table class="table " id="project-table" style="width: 99%;">
+            <thead>
+                <tr>
+                    <th>S.No</th>
+                    <th>Task</th>
+                    <th>Assigned to </th>
+                    <th>Start Date</th>
+                    <th>Deadline</th>
+                    <th>Priority</th>
+                    <th>Status</th>
+                  </tr>
+            </thead>
+            <tbody>
+              <ng-container
+                *ngFor="let data of ProjectList | paginate: { itemsPerPage: 3, currentPage: p }; let i=index">
+                <tr (click)="addviewtask()" style="cursor:pointer">
+                  <td>{{i+1}}</td>
+                  <td>{{data.name}}</td>
+                  <td>{{data.task}}</td>
+                  <td>{{data.date}}</td>
+                  <td>{{data.deadline}}</td>
+                  <td><span class="priority"></span> &nbsp;&nbsp;High</td>
+                  <td><span class="status-btn">Overdue</span></td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+          <div style="float:right">
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          </div>
+        </div>
+      </div>
+      <!-- Task table end--->
+    </div>
+    <!-- Task add design start--->
+    <div class="row" *ngIf="newProject" style="position: absolute;
+    top: 170px;">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12 col-lg-6">
+      <div class="addnewscreen">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 addnewpage-head">
+          
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <h4>New Task</h4>
+              </div>
+              <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <span class="close-tag" (click)="closetasks()"><img src="assets/images/x.png" class="x-img"></span>
+              </div>
+
+        </div>
+        <div class="addnewpage-body">
+          <form [formGroup]="projectForm">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 nopadding">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+              <div class="form-group">
+                <label>Select Project</label>
+                <select class="form-control" id="sel1" formControlName="project">
+                    <option>Project 1</option>
+                    <option>Project 2</option>
+                   
+                  </select>
+                <small class="text-danger"
+                  *ngIf="!projectForm.controls.project.valid && projectForm.controls.project.touched">
+                  Select Project is invalid</small>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+              <div class="form-group">
+                <label>Task Name</label>
+                <input type="text" class="form-control" formControlName="name" placeholder="Task Name">
+                <small class="text-danger"
+                  *ngIf="!projectForm.controls.name.valid && projectForm.controls.name.touched">
+                  Task Name is invalid</small>
+              </div>
+            </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 nopadding">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+              <div class="form-group">
+                <label>Manager</label>
+                <input type="text" class="form-control" formControlName="manager" placeholder="Manager">
+                <small class="text-danger"
+                  *ngIf="!projectForm.controls.manager.valid && projectForm.controls.manager.touched">
+                  Manager is invalid</small>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            
+              <div class="checkbox" *ngIf="check==0">
+                  <div class="form-group" style="padding-top: 28px;">
+                <input type="checkbox" id="tepmpspec" (click)="select()" checked>
+                <label for="tepmpspec">Let the Manager Assign the task
+                </label>
+
+              </div>
+              </div>
+            
+              <div *ngIf="check==1">
+                  <div class="form-group">
+                <label for="sel1">Assign to:</label>
+                <select class="form-control" id="sel1">
+                  <option></option>
+                  <option></option>
+                  <option></option>
+                  <option></option>
+                </select>
+              </div>
+              </div>
+            </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 nopadding">
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+              <div class="form-group">
+                <label>Estimated Hours</label>
+                <input type="text" class="form-control" formControlName="hours" placeholder="Estimated Hours">
+                <small class="text-danger"
+                  *ngIf="!projectForm.controls.hours.valid && projectForm.controls.hours.touched">
+                  Estimated Hours is invalid</small>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+              <div class="form-group">
+                <label>Start Date</label>
+                <input type="date" class="form-control" formControlName="startdate" placeholder="Deadline">
+                <small class="text-danger"
+                  *ngIf="!projectForm.controls.startdate.valid && projectForm.controls.startdate.touched">
+                  Start Date is invalid</small>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                <div class="form-group">
+                  <label>Deadline</label>
+                  <input type="date" class="form-control" formControlName="deadline" placeholder="Deadline">
+                  <small class="text-danger"
+                    *ngIf="!projectForm.controls.deadline.valid && projectForm.controls.deadline.touched">
+                    Deadline is invalid</small>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              <div class="form-group">
+                <label>Description / Scope of work</label>
+                <textarea type="text" class="form-control" formControlName="description" placeholder="Description" style="height: 90px"></textarea>
+                <small class="text-danger"
+                  *ngIf="!projectForm.controls.description.valid && projectForm.controls.description.touched">
+                  Description / Scope of work is invalid</small>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+              <div class="form-group">
+                <label>Reference Drawings</label><br>
+                <span><img src="assets/images/attach.png">&nbsp;<span class="attact">Attach files</span></span>
+              </div>
+
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+              <div class="form-group">
+                <label>Priority</label>
+                <input type="text" class="form-control" formControlName="priority" placeholder="Priority">
+                <small class="text-danger"
+                  *ngIf="!projectForm.controls.priority.valid && projectForm.controls.priority.touched">
+                  Priority is invalid</small>
+              </div>
+            </div>
+          </form>
+          <div class="footer-btns">
+            <button type="button" class="btn btn-sm btn-cancel" (click)="cancelnew()">Cancel</button>&nbsp;&nbsp;
+            <button type="button" class="btn btn-sm btn-add" (click)="ConfrimProject()">Create Task</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    <!-- Task add design start--->
+    <!-- Task view design start--->
+    <div class="row" *ngIf="taskView" style="position: absolute;
+    top: 190px;">
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <div class="addnewscreen">
+          <div class=" col-xs-12 col-sm-12 col-md-12 col-lg-12 addnewpage-head">
+
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+              <h4>View Task</h4>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+              <span class="close-tag" (click)="closetask()"><img src="assets/images/x.png" class="x-img"></span>
+            </div>
+
+          </div>
+          <div class="addnewpage-body">
+            <h6 class="des-head"><img src="assets/images/info-icon.png">&nbsp;&nbsp;Description</h6>
+            <p class="view-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+              incididunt ut labore
+              et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+              aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+              cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa
+              qui officia deserunt mollit anim id est laborum.</p>
+            <hr>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 nopadding">
+              <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 nopadding">
+                <h6 class="des-head"><span><img
+                      src="assets/images/star.png"></span>&nbsp;&nbsp;&nbsp;<span>Status</span>&nbsp;&nbsp;&nbsp;<span
+                    class="status">In Progress</span></h6>
+                <h6 class="des-head"><span><img src="assets/images/date-pic.png"></span>&nbsp;&nbsp;&nbsp;<span>Start
+                    Date</span>&nbsp;&nbsp;&nbsp;<span class="status">19/7/19</span></h6>
+                <h6 class="des-head"><span><img
+                      src="assets/images/date-pic.png"></span>&nbsp;&nbsp;&nbsp;<span>Deadline</span>&nbsp;&nbsp;&nbsp;<span
+                    class="status">20/7/19</span></h6>
+                <h6 class="des-head"><span><img
+                      src="assets/images/thun.png"></span>&nbsp;&nbsp;&nbsp;<span>Priority</span>&nbsp;&nbsp;&nbsp;<span
+                    class="status">High</span></h6>
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                <h6 class="des-head"><span><img src="assets/images/single-user.png"></span>&nbsp;&nbsp;&nbsp;Manager
+                </h6>
+                <h6><span><img src="assets/images/user.png"></span>&nbsp;&nbsp;&nbsp;&nbsp;Username</h6>
+                <h6 class="des-head"><span><img src="assets/images/Group-icon.png"></span>&nbsp;&nbsp;&nbsp;Assigned to
+                </h6>
+                <h6><span><img src="assets/images/user.png"></span>&nbsp;&nbsp;&nbsp;&nbsp;Username</h6>
+              </div>
+            </div>
+            <h5 id="font">Time Spent</h5>
+            <div class="progress">
+              <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"
+                style="width:70%">
+                <span class="sr-only">70% Complete</span>
+              </div>
+            </div>
+
+
+            <h5 style="padding-top:20px" id="font">Reference Drawings</h5>
+            <p><span class="glyphicon glyphicon-save-file"></span> File Name .Pdf</p>
+            <p><span class="glyphicon glyphicon-save-file"></span> File Name .Pdf</p>
+            <div class="footer-btns">
+              <button type="button" class="btn btn-sm btn-add" (click)="Edittask()">Edit Task</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Task view design end--->
+  </div>
+</main>

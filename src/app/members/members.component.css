@@ -1,0 +1,98 @@
+#main {
+    background-color: #f8f8f8;
+}
+.content {
+    height: 100%;
+    width: 100%;
+    float: left;
+    vertical-align: top;
+}
+
+#topcard{background: #ffff;
+    box-shadow: 0 2px 4px 0 rgba(203,203,203,0.50);
+    padding: 13px;
+    height: 65px;
+}
+
+#card{margin-top: 36px;
+    /* padding: 27px; */
+    margin-left: 20px;
+    margin-right: 20px;
+    border: 1px solid #D4D4D4;
+    padding: 15px;
+}
+.selectteam{
+    background: #EAEAEA;
+    border-radius: 2px;
+    border: none;
+    padding: 7px;
+    margin-left: 20px;
+}
+#member-table thead tr{
+    background: #EAEAEA;
+border: 1px solid #979797;
+border-radius: 2px;
+}
+#member-table thead tr.secrow{
+    background: #D8D8D8;
+    border: 1px solid #979797;
+}
+#member-table tbody tr{
+    background: #ffffff;
+    border: 1px solid #E9E9E9;
+}
+#member-table tbody tr td{
+    background: #ffffff;
+
+ 
+}
+th,td{
+    font-size:14px;
+}
+.plan-cell{
+    background: #286CBC;
+    border-radius: 2px;
+    height: 12px;
+    padding: 0px;
+    width: 60%;
+    margin: 0px;
+}
+.plan-cell2{
+    background: #9E64A9;
+    border-radius: 2px;
+    height: 12px;
+    padding: 0px;
+    width: 60%;
+    margin: 0px;
+}
+.thre {
+    background: #518713;
+    color: #fff;
+    padding: 2px 3px;
+    border-radius: 3px;
+    font-size: 12px;
+    position: absolute;
+    top: 125px;
+}
+.linechart{
+    right: 250px;
+    position: absolute;
+    top: 111px;
+    height: 370px;
+}
+.linechart2{
+    right: 642px;
+    position: absolute;
+    top: 111px;
+    height: 370px;
+}
+@media (max-width:1440px){
+    th,td{
+        font-size:14px;
+    }
+  }
+  .title-page{
+    font-family: corpoS-normal;
+    font-size: 22px;
+    font-weight: 800;
+}
